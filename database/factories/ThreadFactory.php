@@ -24,6 +24,7 @@ class ThreadFactory extends Factory
     {
         return [
             'user_id' => $this->faker->numberBetween(1,2), 
+            'title'  => $this->faker->sentence,
             'body'  => $this->faker->paragraph()
         ];
     }
