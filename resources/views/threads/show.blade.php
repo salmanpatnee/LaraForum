@@ -4,32 +4,42 @@
     <div class="container">
         <div class="row">
             <div class="col-sm-12">
-            <div class="card mb-3">
-                <div class="card-body">
-                    <h5 class="card-title">
-                        {{$thread->title}}
-                    </h5>
-                <p class="card-text">{{$thread->body}}</p>
-                </div>
-            </div>
-        </div>
-        </div>
-        
-            @foreach ($thread->replies as $reply)
-                <div class="row">
-                    <div class="col-sm-8">
-                        <div class="card mb-4">
-                            <div class="card-header">
-                                <a href="#">{{$reply->owner->name}}</a> said {{$reply->created_at->diffForHumans()}}
-                            </div>
-                            <div class="card-body">
-                                <p class="card-text">{{$reply->body}}</p>
-                            </div>
-                        </div>
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <h3 class="card-title">
+                            <a href="#">
+                                {{$thread->owner->name}}
+                            </a> posted:
+                            {{$thread->title}}
+                        </h3>
+                        <p class="card-text">{{$thread->body}}</p>
                     </div>
                 </div>
-            @endforeach
+             </div>
+        </div>
         
+        {{-- Replies --}}
+        @foreach ($thread->replies as $reply)
+            <x-reply :reply="$reply"/>
+        @endforeach
+        
+        {{-- Reply Form --}}
+
+        @if (auth()->check())
+            <div class="row">
+                <div class="col-sm-12">
+                    <form method="POST" action="{{route('replies.store', $thread)}}">
+                        @csrf
+                        <div class="form-group">
+                            <textarea class="form-control" id="body" name="body" rows="3" placeholder="Add comment"></textarea>
+                          </div>
+                        <button type="submit" class="btn btn-primary">Reply</button>
+                      </form>
+                </div>
+            </div>
+        @else
+        <p class="text-cennter"><a href="{{route('login')}}">Sign in</a>  to participate into the discussion.</p>
+        @endif
        
     </div>
 @endsection
