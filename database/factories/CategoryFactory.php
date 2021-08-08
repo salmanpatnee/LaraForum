@@ -2,18 +2,18 @@
 
 namespace Database\Factories;
 
-use App\Models\Thread;
-use App\Models\User;
+use App\Models\Category;
 use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
 
-class ThreadFactory extends Factory
+class CategoryFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Thread::class;
+    protected $model = Category::class;
 
     /**
      * Define the model's default state.
@@ -22,11 +22,12 @@ class ThreadFactory extends Factory
      */
     public function definition()
     {
+        $name = $this->faker->word;
+
         return [
-            'user_id' => $this->faker->numberBetween(1,2), 
-            'category_id' =>  $this->faker->numberBetween(1,5), 
-            'title'  => $this->faker->sentence,
-            'body'  => $this->faker->paragraph()
+
+            'name' => $name, 
+            'slug' => Str::slug($name) 
         ];
     }
 }

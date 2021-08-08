@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Category;
 use App\Models\Thread;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class ThreadController extends Controller
 {
     public function __construct()
     {   
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->only('store', 'create');
     }
 
     /**
@@ -17,9 +18,14 @@ class ThreadController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Category $category)
     {
-        $threads = Thread::latest()->get();
+        if($category->exists){
+            $threads = $category->threads()->latest()->get();
+        } else {
+            $threads = Thread::latest()->get();
+        }
+        
         return view('threads.index', compact('threads'));
     }
 
@@ -41,13 +47,21 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
+
+        $this->validate($request, [
+            'title' => 'required', 
+            'category_id' => 'required|exists:categories,id', 
+            'body' => 'required'
+        ]);
+
         $thread = Thread::create([
             'user_id' => auth()->id(), 
+            'category_id' => request('category_id'), 
             'title' => request('title'), 
             'body' => request('body')
         ]);
 
-        return redirect(route('threads.show', $thread));
+        return redirect($thread->path());
     }
 
     /**
@@ -56,7 +70,7 @@ class ThreadController extends Controller
      * @param  \App\Models\Thread  $thread
      * @return \Illuminate\Http\Response
      */
-    public function show(Thread $thread)
+    public function show($category, Thread $thread)
     {
         return view('threads.show', compact('thread'));
     }
