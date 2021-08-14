@@ -33,15 +33,24 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item">
-                            <a class="nav-link" href="{{ route('threads') }}">{{ __('Threads') }}</a>
-                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                              Browse
+                            </a>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item" href="{{route('threads')}}">All Threads</a>
+                                @if (auth()->check())
+                                    <a class="dropdown-item" href="/threads?by={{auth()->user()->name}}">My Threads</a>    
+                                @endif
+                                <a class="dropdown-item" href="/threads?popular=1">Popular</a>
+                            </div>
+                          </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                               Categories
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                @foreach (App\Models\Category::all() as $category)
+                                @foreach ($categories as $category)
                                     <a class="dropdown-item" href="{{route('threads.categories', $category)}}">{{$category->name}}</a>
                                 @endforeach
                               

@@ -7,7 +7,8 @@
             <div class="form-group">
                 <select name="category_id" id="category_id" class="form-control">
                     <option value="">Choose a category</option>
-                    @foreach (App\Models\Category::all() as $category)
+                    
+                    @foreach ($categories as $category)
                         <option 
                         {{ old('category_id') == $category->id ? 'selected' : ''}}
                         value="{{$category->id}}">
