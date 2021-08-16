@@ -11,6 +11,8 @@ class Thread extends Model
 
     protected $guarded = [];
     
+    protected  $with = ['owner', 'category'];
+
     protected static function boot(){
         parent::boot();
 

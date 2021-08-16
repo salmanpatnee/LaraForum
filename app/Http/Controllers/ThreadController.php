@@ -72,7 +72,7 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($category, Thread $thread)
-    {   
+    {  
         return view('threads.show', [
             'thread' => $thread, 
             'replies' => $thread->replies()->paginate()

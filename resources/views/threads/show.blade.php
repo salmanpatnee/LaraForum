@@ -8,7 +8,7 @@
                 <div class="card mb-3">
                     <div class="card-body">
                         <h3 class="card-title">
-                            <a href="#">
+                            <a href="{{route('profile', $thread->owner->name)}}">
                                 {{$thread->owner->name}}
                             </a> posted:
                             {{$thread->title}}
@@ -48,7 +48,7 @@
                     <div class="card-body">
                         <p>
                            This thread was published on {{$thread->created_at->diffForHumans()}} by 
-                           <a href="">{{$thread->owner->name}}</a> and currently has {{$thread->replies_count}} {{Str::plural('comment', $thread->replies_count)}}
+                           <a href="{{route('profile', $thread->owner->name)}}">{{$thread->owner->name}}</a> and currently has {{$thread->replies_count}} {{Str::plural('comment', $thread->replies_count)}}
                         </p>
                     </div>
                 </div>

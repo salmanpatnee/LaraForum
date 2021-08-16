@@ -29,5 +29,7 @@ Route::get('/threads/{category}/{thread}', [App\Http\Controllers\ThreadControlle
 Route::post('/threads}', [App\Http\Controllers\ThreadController::class, 'store'])->name('threads.store');
 
 Route::post('/threads/{thread}/replies', [App\Http\Controllers\ReplyController::class, 'store'])->name('replies.store');
-
 Route::post('/replies/{reply}/favorites', [App\Http\Controllers\FavoriteController::class, 'store'])->name('favorites.store');
+
+
+Route::get('/profiles/{user:name}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile');
