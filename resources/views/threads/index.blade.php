@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        @foreach ($threads as $thread)
+        @forelse ($threads as $thread)
         <div class="card mb-3">
             <div class="card-body">
               <div class="d-flex justify-content-between">
@@ -21,6 +21,8 @@
               <a href="{{$thread->path()}}" class="btn btn-primary">Read Thread</a>
             </div>
           </div>
-        @endforeach
+        @empty
+          <p>No threads were found.</p>
+        @endforelse
     </div>
 @endsection

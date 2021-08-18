@@ -7,12 +7,22 @@
 
                 <div class="card mb-3">
                     <div class="card-body">
-                        <h3 class="card-title">
-                            <a href="{{route('profile', $thread->owner->name)}}">
-                                {{$thread->owner->name}}
-                            </a> posted:
-                            {{$thread->title}}
-                        </h3>
+                        <div class="d-flex justify-content-between">
+                            <h5 class="card-title">
+                                <a href="{{route('profile', $thread->owner->name)}}">
+                                    {{$thread->owner->name}}
+                                </a> posted:
+                                {{$thread->title}}
+                            </h5>
+                            @can('update', $thread)
+                                <form action="{{route('threads.destroy', $thread->id)}}" method="POST">
+                                    @csrf
+                                    @method('DELETE')
+                                    <button type="submit" class="btn-danger btn btn-sm">Delete</button>
+                                </form>
+                            @endcan
+                          
+                        </div>
                         <p class="card-text">{{$thread->body}}</p>
                     </div>
                 </div>

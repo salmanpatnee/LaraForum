@@ -26,6 +26,7 @@ Route::get('/threads/create', [App\Http\Controllers\ThreadController::class, 'cr
 Route::get('/threads/{category:slug}', [App\Http\Controllers\ThreadController::class, 'index'])->name('threads.categories');
 
 Route::get('/threads/{category}/{thread}', [App\Http\Controllers\ThreadController::class, 'show'])->name('threads.show');
+Route::delete('/threads/{thread}', [App\Http\Controllers\ThreadController::class, 'destroy'])->name('threads.destroy');
 Route::post('/threads}', [App\Http\Controllers\ThreadController::class, 'store'])->name('threads.store');
 
 Route::post('/threads/{thread}/replies', [App\Http\Controllers\ReplyController::class, 'store'])->name('replies.store');

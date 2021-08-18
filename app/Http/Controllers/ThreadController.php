@@ -109,8 +109,14 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy(Thread $thread)
-    {
-        //
+    {   
+        $this->authorize('update', $thread);
+        
+        $thread->delete();
+
+        if(request()->wantsJson()) return response([], 204);
+
+        return redirect(route('threads'));
     }
 
     private function getThreads(Category $category, ThreadFilters $filters){
