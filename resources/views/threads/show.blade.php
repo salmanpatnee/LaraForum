@@ -42,8 +42,11 @@
                             <form method="POST" action="{{route('replies.store', $thread)}}">
                                 @csrf
                                 <div class="form-group">
-                                    <textarea class="form-control" id="body" name="body" rows="3" placeholder="Add comment"></textarea>
+                                    <textarea class="form-control" id="body" name="body" rows="3" placeholder="Add comment" required></textarea>
                                 </div>
+                                @error('body')
+                                    <p class="text-danger">{{$message}}</p>
+                                @enderror
                                 <button type="submit" class="btn btn-primary">Reply</button>
                             </form>
                         </div>
