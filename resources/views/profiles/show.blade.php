@@ -10,7 +10,9 @@
       <h3>{{$date}}</h3>
       <hr>
       @foreach ($activity as $record)
-        @include("profiles.activities.{$record->type}")     
+        @if (view()->exists("profiles.activities.{$record->type}"))
+          @include("profiles.activities.{$record->type}")       
+        @endif
       @endforeach
      
     @empty
