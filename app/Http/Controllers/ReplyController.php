@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Reply;
 use App\Models\Thread;
 use Illuminate\Http\Request;
 
@@ -9,7 +10,7 @@ class ReplyController extends Controller
 {
     public function __construct()
     {   
-        $this->middleware('auth')->only('store');
+        $this->middleware('auth')->only('store', 'destroy');
     }
     
     public function store(Thread $thread, Request $request){
@@ -24,5 +25,14 @@ class ReplyController extends Controller
         ]);
 
         return back()->with('flash', 'Your reply has been added.');
+    }
+
+    public function destroy(Reply $reply){
+        
+        $this->authorize('delete', $reply);
+        
+        $reply->delete();
+
+        return back()->with('flash', 'Reply has been deleted.');
     }
 }

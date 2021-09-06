@@ -116,7 +116,7 @@ class ThreadController extends Controller
 
         if(request()->wantsJson()) return response([], 204);
 
-        return redirect(route('threads'));
+        return redirect(route('threads'))->with('flash', 'Thread has been deleted.');
     }
 
     private function getThreads(Category $category, ThreadFilters $filters){
