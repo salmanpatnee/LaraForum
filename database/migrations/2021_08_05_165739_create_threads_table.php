@@ -16,6 +16,7 @@ class CreateThreadsTable extends Migration
         Schema::create('threads', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->unsignedBigInteger('replies_count')->default(0);
             $table->string('title');
             $table->text('body');
             $table->timestamps();

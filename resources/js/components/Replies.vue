@@ -45,9 +45,10 @@ export default {
     
     methods: {
         url(page){
+
             if(!page) {
                 let query = location.search.match(/page=(\d+)/);
-                page = query ? query[1] : 5;
+                page    = query ? query[1] : 1;
             }
 
             return '/threads/null/' +this.getThreadId+ '/replies?page='+page;
@@ -60,6 +61,8 @@ export default {
         refresh(response){
             this.dataset = response.data;
             this.replies = response.data.data;
+
+            window.scrollTo(0, 0);
         }, 
 
         add(reply){

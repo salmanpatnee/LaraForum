@@ -14,7 +14,7 @@ class ReplyController extends Controller
     }
     
     public function index($categoryId, Thread $thread){
-        return $thread->replies()->paginate(3);
+        return $thread->replies()->paginate(10);
     }
 
     public function store(Thread $thread, Request $request){
