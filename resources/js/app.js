@@ -1,12 +1,12 @@
 require('./bootstrap');
 
 
-// Require Vue
-window.Vue = require('vue').default;
 
+import Vue from 'vue';
 // Register Vue Components
 import flash from './components/Flash.vue';
-import reply from './components/Reply.vue';
+import thread from './components/pages/Thread.vue';
+
 
 // Initialize Vue
 const app = new Vue({
@@ -14,7 +14,14 @@ const app = new Vue({
 
     components:{
         'flash':flash, 
-        'reply':reply, 
+        'thread-view':thread, 
     }
 
 });
+
+
+window.events = new Vue();
+
+window.flash = function(message){
+    window.events.$emit('flash', message);
+};

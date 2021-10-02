@@ -18,6 +18,14 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    
+    <script>
+        window.App = {!! json_encode([
+            'signedIn'  => Auth::check(), 
+            'user'      => Auth::User()
+        ]) !!};
+    </script>
+
 </head>
 <body>
     <div id="app">

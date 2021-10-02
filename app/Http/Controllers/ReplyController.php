@@ -13,16 +13,24 @@ class ReplyController extends Controller
         $this->middleware('auth')->only('store', 'destroy');
     }
     
+    public function index($categoryId, Thread $thread){
+        return $thread->replies()->paginate(3);
+    }
+
     public function store(Thread $thread, Request $request){
 
         $this->validate($request, [
             'body' => 'required'
         ]);
 
-        $thread->addReply([
+        $reply = $thread->addReply([
             'body' => request('body'), 
             'user_id' => auth()->id()
         ]);
+
+        if(request()->expectsJson()){
+            return $reply->load('owner');
+        }
 
         return back()->with('flash', 'Your reply has been added.');
     }
@@ -39,6 +47,10 @@ class ReplyController extends Controller
         $this->authorize('delete', $reply);
         
         $reply->delete();
+
+        if(request()->expectsJson()){
+            return response(['status' => 'Reply deleted']);
+        }
 
         return back()->with('flash', 'Reply has been deleted.');
     }

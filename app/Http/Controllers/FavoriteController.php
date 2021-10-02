@@ -16,4 +16,9 @@ class FavoriteController extends Controller
         $reply->favorite();
         return back()->with('flash', 'You favorited a reply.');
     }
+
+    public function destroy(Reply $reply){
+        $reply->unfavorite();
+
+    }
 }

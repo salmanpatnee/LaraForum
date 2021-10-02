@@ -9,9 +9,19 @@ window._ = require('lodash');
 try {
     window.Popper = require('popper.js').default;
     window.$ = window.jQuery = require('jquery');
-
+    
     require('bootstrap');
 } catch (e) {}
+
+
+// Require Vue
+window.Vue = require('vue').default;
+
+Vue.prototype.authorize = function(handler){
+    let user = window.App.user;
+
+    return user ? handler(user) : false;
+};
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -40,3 +50,5 @@ window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 //     cluster: process.env.MIX_PUSHER_APP_CLUSTER,
 //     forceTLS: true
 // });
+
+

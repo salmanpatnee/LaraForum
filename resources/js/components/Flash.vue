@@ -23,16 +23,15 @@ export default {
     }, 
     methods:{
         flash(message){
-        this.body = message;
-        this.show = true;
-        this.hide();
-    }, 
-
-    hide(){
-        setTimeout(()=>{
-            this.show = false;
-        }, 3000);
-}
+            this.body = message;
+            this.show = true;
+            this.hide();
+        }, 
+        hide(){
+            setTimeout(()=>{
+                this.show = false;
+            }, 3000);
+        }
     }
     
 }
