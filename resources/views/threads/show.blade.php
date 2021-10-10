@@ -38,15 +38,11 @@
                             This thread was published on {{$thread->created_at->diffForHumans()}} by 
                             <a href="{{route('profile', $thread->owner->name)}}">{{$thread->owner->name}}</a> and currently has <span v-text="repliesCount"></span> {{Str::plural('comment', $thread->replies_count)}}
                             </p>
+                            <subscribe-button :active="{{json_encode($thread->isSubscribedTo)}}"></subscribe-button>
                         </div>
                     </div>
                 </div>
             </div>
-            
-            
-            
-            
-        
         </div>
     </thread-view>
 @endsection

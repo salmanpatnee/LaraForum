@@ -6,6 +6,7 @@ import Vue from 'vue';
 // Register Vue Components
 import flash from './components/Flash.vue';
 import thread from './components/pages/Thread.vue';
+import userNotifications from './components/UserNotifications.vue';
 
 
 // Initialize Vue
@@ -15,6 +16,7 @@ const app = new Vue({
     components:{
         'flash':flash, 
         'thread-view':thread, 
+        'user-notifications':userNotifications, 
     }
 
 });

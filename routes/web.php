@@ -34,9 +34,14 @@ Route::post('/threads/{thread}/replies', [App\Http\Controllers\ReplyController::
 Route::patch('/replies/{reply}', [App\Http\Controllers\ReplyController::class, 'update'])->name('replies.update');
 Route::delete('/replies/{reply}', [App\Http\Controllers\ReplyController::class, 'destroy'])->name('replies.destroy');
 
+Route::post('/threads/{category}/{thread}/subscribe', [App\Http\Controllers\ThreadSubscriptionsController::class, 'store']);
+Route::delete('/threads/{category}/{thread}/subscribe', [App\Http\Controllers\ThreadSubscriptionsController::class, 'destroy']);
+
 Route::post('/replies/{reply}/favorites', [App\Http\Controllers\FavoriteController::class, 'store'])->name('favorites.store');
 Route::delete('/replies/{reply}/favorites', [App\Http\Controllers\FavoriteController::class, 'destroy'])->name('favorites.destroy');
 
 
 
 Route::get('/profiles/{user:name}', [App\Http\Controllers\ProfileController::class, 'show'])->name('profile');
+Route::get('/profiles/{user:name}/notifications', [App\Http\Controllers\UserNotificationsController::class, 'index']);
+Route::delete('/profiles/{user:name}/notifications/{notification}', [App\Http\Controllers\UserNotificationsController::class, 'destroy']);

@@ -48,7 +48,6 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-
         $this->validate($request, [
             'title' => 'required',
             'category_id' => 'required|exists:categories,id',
@@ -72,7 +71,8 @@ class ThreadController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function show($category, Thread $thread)
-    {  
+    { 
+        
         return view('threads.show', compact('thread'));
     }
 
