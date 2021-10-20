@@ -7,8 +7,13 @@
             <div class="card-body">
               <div class="d-flex justify-content-between">
                 <h5 class="card-title">
-                  <a href="{{$thread->path()}}">{{$thread->title}}</a>
-                  {{-- <a href="/threads/{{$thread->category->slug}}/{{$thread->id}}">{{$thread->title}}</a> --}}
+                  <a href="{{$thread->path()}}">
+                    @if (auth()->check() && $thread->hasUpdatesFor(auth()->user()))
+                        <strong>{{$thread->title}}</strong>
+                    @else
+                      {{$thread->title}}
+                    @endif
+                  </a>
                 </h5>
                 <span>
                   <a href="{{$thread->path()}}">

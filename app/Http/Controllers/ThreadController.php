@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\ThreadFilters;
 use App\Models\Category;
 use App\Models\Thread;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -72,6 +73,9 @@ class ThreadController extends Controller
      */
     public function show($category, Thread $thread)
     { 
+        if(auth()->check()) {
+            auth()->user()->read($thread);
+        }
         
         return view('threads.show', compact('thread'));
     }
