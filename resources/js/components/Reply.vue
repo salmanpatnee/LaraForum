@@ -71,6 +71,9 @@ export default {
         update(){
             axios.patch('/replies/' + this.data.id, {
                 body: this.body
+            })
+            .catch(error => {
+                console.log('ERROR: ' + error.response.data)
             });
 
             this.editing = false;

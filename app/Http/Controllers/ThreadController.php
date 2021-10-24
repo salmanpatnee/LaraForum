@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Filters\ThreadFilters;
 use App\Models\Category;
 use App\Models\Thread;
-use Carbon\Carbon;
+use App\Rules\SpamFree;
 use Illuminate\Http\Request;
 
 class ThreadController extends Controller
@@ -49,11 +49,7 @@ class ThreadController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'title' => 'required',
-            'category_id' => 'required|exists:categories,id',
-            'body' => 'required'
-        ]);
+        $this->validateThread();
 
         $thread = Thread::create([
             'user_id' => auth()->id(),
@@ -129,6 +125,16 @@ class ThreadController extends Controller
         } 
         
         return $threads->get();
+    }
+
+    protected function validateThread(){
+        $this->validate(request(), [
+            'title' => ['required', new SpamFree],
+            'category_id' => 'required|exists:categories,id',
+            'body' => ['required', new SpamFree]
+        ]);
+
+        resolve(Spam::class)->detect(request('body'));
     }
 
 }
