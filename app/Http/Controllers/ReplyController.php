@@ -20,21 +20,24 @@ class ReplyController extends Controller
     }
 
     public function store(Thread $thread, Request $request){
+        
+        try {
+            $this->authorize('create', new Reply);
 
-        $this->validate(request(), [
-            'body' => ['required', new SpamFree]
-        ]);
+            $this->validate(request(), [
+                'body' => ['required', new SpamFree]
+            ]);
 
-        $reply = $thread->addReply([
-            'body' => request('body'), 
-            'user_id' => auth()->id()
-        ]);
+            $reply = $thread->addReply([
+                'body' => request('body'), 
+                'user_id' => auth()->id()
+            ]);
 
-        if(request()->expectsJson()){
-            return $reply->load('owner');
+        } catch (\Exception $e) {
+            return response('Sorry, your reply could not be saved at this time.', 422);
         }
-
-        return back()->with('flash', 'Your reply has been added.');
+        
+        return $reply->load('owner');
     }
 
     public function update(Reply $reply, Spam $spam){
